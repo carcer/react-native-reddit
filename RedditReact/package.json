@@ -1,0 +1,19 @@
+{
+  "name": "RedditReact",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node_modules/react-native/packager/packager.sh"
+  },
+  "engines": {
+    "node": "4.1"
+  },
+  "dependencies": {
+    "immutable": "^3.7.5",
+    "lodash": "^3.10.1",
+    "normalizr": "^1.0.0",
+    "npm": "^3.3.3",
+    "react-native": "^0.11.0",
+    "superagent": "^1.4.0"
+  }
+}
