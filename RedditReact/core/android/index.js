@@ -1,40 +1,19 @@
-/**
-* Sample React Native App
-* https://github.com/facebook/react-native
-*/
 'use strict';
 
 var React = require('react-native');
-
 var {
-  BackAndroid,
-  Navigator,
-  ToolbarAndroid,
-  Image,
-  ListView,
-  StyleSheet,
   Text,
   View,
-  PixelRatio,
   TouchableHighlight,
-  ProgressBarAndroid,
-  WebView
+  StyleSheet,
+  ListView
 } = React;
 
 var Loading = require('./components/Loading');
 var RedditList = require('../components/RedditList');
+var Login = require('../components/Login');
 
-var request = require('superagent');
 var Immutable = require('immutable');
-var normalizr = require('normalizr');
-
-var {
-	normalize,
-	Schema,
-	arrayOf
-} = normalizr;
-
-var WEBVIEW_REF = 'webview';
 
 var RedditReact = React.createClass({
 	getInitialState: function() {
@@ -51,13 +30,7 @@ var RedditReact = React.createClass({
 	},
 
 	renderLogin: function() {
-		console.log(this.state.authUrl);
-		return (<View>
-				<Text>
-					{this.state.authUrl}
-				</Text>
-	        </View>
-			);
+		return (<Login />);
 	},
 
 	onNavigationStateChange: function(...args){
@@ -65,16 +38,8 @@ var RedditReact = React.createClass({
 	},
 
 	login: function(e){
-		const apiUrl = 'https://www.reddit.com/api/v1';
-		const requestId = new Date().getTime();
-		const scope = 'read';
-		const redirectUri='http://e4ums.co.uk/auth'
-		const authorizeUrl = `${apiUrl}/authorize?client_id=RedditApp&response_type=token&
-state=${requestId}&redirect_uri=${redirectUri}&scope=${scope}`;
-console.log('logging in...')
 		this.setState({
 			isLoggingIn: true,
-			authUrl: authorizeUrl
 		});
 	},
 
@@ -83,7 +48,7 @@ console.log('logging in...')
 			return this.renderLoading();
 		}
 
-		if(this.state.isLoggingIn) {
+		if (this.state.isLoggingIn) {
 			return this.renderLogin();
 		}
 

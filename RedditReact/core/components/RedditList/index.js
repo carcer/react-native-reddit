@@ -11,7 +11,7 @@ var RedditListItem = require('../RedditListItem');
 let RedditList = React.createClass({
 	renderArticle: function(article) {
 	    return (<RedditListItem article={article} />);
-	  },
+	},
 
 	render: function() {
 		return (
