@@ -1,6 +1,6 @@
 import React, { Component, ListView, PropTypes } from 'react-native';
 
-var RedditListItem = require('../RedditListItem');
+import RedditListItem from '../RedditListItem';
 
 export default class RedditList extends Component {
 	static propTypes = { listings: PropTypes.array }

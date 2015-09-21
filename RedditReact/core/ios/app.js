@@ -1,4 +1,3 @@
-
 import React, { Component, PropTypes, Text, View, TouchableHighlight, StyleSheet, ListView } from 'react-native';
 
 import { fetchSubreddit, finishedLoading } from '../actions/Reddit';
