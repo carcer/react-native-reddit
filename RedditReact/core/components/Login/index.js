@@ -1,18 +1,11 @@
-'use strict';
+import React, { Component, View, Text } from 'react-native';
 
-var React = require('react-native');
-
-var {
-	View,
-	Text,
-} = React;
-
-const Login = React.createClass({
-	render: function() {
+export default class Login extends Component {
+	render() {
 		const apiUrl = 'https://www.reddit.com/api/v1';
 		const requestId = new Date().getTime();
 		const scope = 'read';
-		const redirectUri='http://e4ums.co.uk/auth'
+		const redirectUri='http://e4ums.co.uk/auth';
 		const authorizeUrl = `${apiUrl}/authorize?client_id=RedditApp&response_type=token&
 state=${requestId}&redirect_uri=${redirectUri}&scope=${scope}`;
 
@@ -23,6 +16,4 @@ state=${requestId}&redirect_uri=${redirectUri}&scope=${scope}`;
         </View>
 		);
 	}
-});
-
-module.exports = Login;
+};

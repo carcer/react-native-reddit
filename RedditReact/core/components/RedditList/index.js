@@ -1,27 +1,38 @@
-'use strict';
+import React, { Component, ListView, PropTypes } from 'react-native';
 
-var React = require('react-native');
+import RedditListItem from '../RedditListItem';
 
-var {
-	ListView,
-} = React;
+export default class RedditList extends Component {
+	static propTypes = { listings: PropTypes.array }
 
-var RedditListItem = require('../RedditListItem');
+	constructor(props) {
+		super(props);
+		this.state = {
+			dataSource: new ListView.DataSource({
+				rowHasChanged: (row1, row2) => row1 !== row2,
+			}).cloneWithRows(props.listings),
+		};
+	}
 
-let RedditList = React.createClass({
-	renderArticle: function(article) {
-	    return (<RedditListItem article={article} />);
-	},
+	componentWillReceiveProps(nextProps) {
+		if ( nextProps.listings )
+			this.setState({
+				dataSource: this.state.dataSource.cloneWithRows(nextProps.listings),
+			});
+	}
 
-	render: function() {
+	renderArticle(article) {
+		return (<RedditListItem article={article} />);
+	}
+
+	render() {
+		console.log(this.state.dataSource);
 		return (
 			<ListView
-		        dataSource={this.props.listings}
-		        renderRow={this.renderArticle}
-		        onEnd
-	      	/>
+				dataSource={this.state.dataSource}
+				renderRow={this.renderArticle}
+				onEnd
+			/>
 		);
 	}
-});
-
-module.exports = RedditList;
+};
