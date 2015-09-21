@@ -1,16 +1,8 @@
-import React, {
-  Component,
-  Proptypes,
-  View,
-  Text,
-  TouchableHighlight,
-  Image,
-  StyleSheet,
-} from 'react-native';
+import React, { Component, PropTypes, View, Text, TouchableHighlight, Image, StyleSheet, } from 'react-native';
 
 
 export default class RedditListItem extends Component {
-	static propTypes = { article: Proptypes.object }
+	static propTypes = { article: PropTypes.object }
 	render() {
 		const { article } = this.props;
 		return (
