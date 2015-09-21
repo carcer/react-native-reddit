@@ -1,4 +1,4 @@
-import { AppRegistry } from 'react-native';
+import React, { AppRegistry } from 'react-native';
 
 import RedditReact from './core/android';
 

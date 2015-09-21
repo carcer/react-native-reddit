@@ -1,4 +1,11 @@
-import React, { Component, PropTypes, Text, View, TouchableHighlight, StyleSheet, ListView } from 'react-native';
+import React, {
+	Component,
+	PropTypes,
+	Text,
+	View,
+	TouchableHighlight,
+	StyleSheet
+} from 'react-native';
 
 import { fetchSubreddit, finishedLoading } from '../actions/Reddit';
 import { connect } from 'react-redux/native';
