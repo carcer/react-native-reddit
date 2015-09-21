@@ -12,7 +12,7 @@ var Loading = React.createClass({
 		return (<View style={{flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
 	        <ProgressBarAndroid styleAttr="Small"/>
 	        <Text style={{textAlign: 'center'}}>
-	          Loading articles...
+	          {this.props.text}
 	        </Text>
 	      </View>);
 	}
