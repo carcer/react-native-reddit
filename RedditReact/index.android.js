@@ -1,15 +1,5 @@
-/**
-* Sample React Native App
-* https://github.com/facebook/react-native
-*/
-'use strict';
+import { AppRegistry } from 'react-native';
 
-var React = require('react-native');
-
-var {
-  AppRegistry
-} = React;
-
-var RedditReact = require('./core/android');
+import RedditReact from './core/android';
 
 AppRegistry.registerComponent('RedditReact', () => RedditReact);

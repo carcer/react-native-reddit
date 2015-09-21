@@ -1,5 +1,3 @@
-'use strict';
-
 import Immutable from 'immutable';
 
 export const FETCH_SUBREDDIT = 'FETCH_SUBREDDIT';
