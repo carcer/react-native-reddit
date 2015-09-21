@@ -1,6 +1,6 @@
 import React, { Component, PropTypes, Text, View, TouchableHighlight, StyleSheet, ListView } from 'react-native';
 
-import { fetchSubreddit, finishedLoading } from '../actions/Reddit';
+import { fetchSubreddit, finishedLoading, clearSubreddit } from '../actions/Reddit';
 import { connect } from 'react-redux/native';
 
 import Loading from './components/Loading';
@@ -14,11 +14,11 @@ class RedditReact extends Component {
 		isFetching: PropTypes.bool,
 		isLoggingIn: PropTypes.bool,
 		listings: PropTypes.array,
+		subreddit: PropTypes.string
 	}
 
 	componentDidMount() {
-		this.props.dispatch(finishedLoading());
-		this.props.dispatch(fetchSubreddit(''));
+		this.refresh();
 	}
 
 	renderLoading(text) {
@@ -31,13 +31,22 @@ class RedditReact extends Component {
 		return (<Login />);
 	}
 
-	login(e) {
-		this.props.dispatch(fetchSubreddit('hot'));
+	refresh = (e) => {
+		const subreddit = this.props.subreddit;
+
+		this.props.dispatch(clearSubreddit());
+		this.props.dispatch(fetchSubreddit({
+			subreddit,
+			after: ''
+		}));
+	}
+
+	pageListings = (data) => {
+		this.props.dispatch(fetchSubreddit(Object.assign({}, data, {subreddit:this.props.subreddit})));
 	}
 
 	render() {
 		if (this.props.isLoading) return this.renderLoading('Loading...');
-		if (this.props.isFetching) return this.renderLoading('Fetching subreddit...');
 
 		if (this.props.isLoggingIn) {
 			return this.renderLogin();
@@ -48,12 +57,12 @@ class RedditReact extends Component {
 				<View>
 				<TouchableHighlight
 					underlayColor="#dddddd"
-					onPress={(e) => this.login(e)}
+					onPress={this.refresh}
 				>
-					<Text style={styles.loginText}>Login </Text>
+					<Text style={styles.refreshText}>Refresh {this.props.subreddit}</Text>
 				</TouchableHighlight>
 				</View>
-				<RedditList listings={this.props.listings} />
+				<RedditList {...this.props.result} subreddit={this.props.subreddit} onPage={this.pageListings} />
 			</View>
 		);
 	}
@@ -70,6 +79,7 @@ var styles = StyleSheet.create({
 });
 
 function select(state) {
+	console.log(state);
 	return state.default || state;
 }
 

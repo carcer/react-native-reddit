@@ -3,7 +3,12 @@ import React, { Component, ListView, PropTypes } from 'react-native';
 import RedditListItem from '../RedditListItem';
 
 export default class RedditList extends Component {
-	static propTypes = { listings: PropTypes.array }
+	static propTypes = {
+		listings: PropTypes.array,
+		onPage: PropTypes.func,
+		before: PropTypes.string,
+		after: PropTypes.string,
+	}
 
 	constructor(props) {
 		super(props);
@@ -25,13 +30,21 @@ export default class RedditList extends Component {
 		return (<RedditListItem article={article} />);
 	}
 
+	endReached = () => {
+		this.props.onPage({
+			subreddit: 'hot',
+			before: this.props.before,
+			after: this.props.after,
+		});
+	}
+
 	render() {
 		console.log(this.state.dataSource);
 		return (
 			<ListView
 				dataSource={this.state.dataSource}
 				renderRow={this.renderArticle}
-				onEnd
+				onEndReached={this.endReached}
 			/>
 		);
 	}

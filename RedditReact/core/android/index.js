@@ -12,7 +12,7 @@ const store = createStoreWithMiddleware(reducer);
 
 export default class App extends Component {
   render() {
-    return (
+  	return (
       <Provider store={store}>
         {() => <RedditApp />}
       </Provider>
