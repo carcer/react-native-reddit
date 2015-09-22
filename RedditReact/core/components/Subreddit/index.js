@@ -19,7 +19,7 @@ export default class Subreddit extends Component {
 		};
 	}
 
-	componentWillRecieveProps(nextProps) {
+	componentWillReceiveProps(nextProps) {
 		this.setState({
 			subreddit: nextProps.subreddit
 		});
