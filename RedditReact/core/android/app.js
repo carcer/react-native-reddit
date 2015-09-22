@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, Text, View, TouchableHighlight, StyleSheet, ListView } from 'react-native';
+import React, { Component, PropTypes, Text, View } from 'react-native';
+import { TouchableHighlight, StyleSheet, ListView, TextInput } from 'react-native';
 
 import { fetchSubreddit, finishedLoading, clearSubreddit } from '../actions/Reddit';
 import { connect } from 'react-redux/native';
@@ -17,8 +18,21 @@ class RedditReact extends Component {
 		subreddit: PropTypes.string
 	}
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			subreddit: props.subreddit
+		}
+	}
+
 	componentDidMount() {
 		this.refresh();
+	}
+
+	componentWillRecieveProps(nextProps) {
+		this.setState({
+			subreddit: nextProps.subreddit
+		});
 	}
 
 	renderLoading(text) {
@@ -32,7 +46,7 @@ class RedditReact extends Component {
 	}
 
 	refresh = (e) => {
-		const subreddit = this.props.subreddit;
+		const subreddit = this.state.subreddit;
 
 		this.props.dispatch(clearSubreddit());
 		this.props.dispatch(fetchSubreddit({
@@ -59,8 +73,13 @@ class RedditReact extends Component {
 					underlayColor="#dddddd"
 					onPress={this.refresh}
 				>
-					<Text style={styles.refreshText}>Refresh {this.props.subreddit}</Text>
+					<Text style={styles.refreshText}>Refresh</Text>
 				</TouchableHighlight>
+				<TextInput
+					    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+					    onChangeText={(subreddit) => this.setState({subreddit})}
+					    value={this.state.subreddit}
+					  />
 				</View>
 				<RedditList {...this.props.result} subreddit={this.props.subreddit} onPage={this.pageListings} />
 			</View>

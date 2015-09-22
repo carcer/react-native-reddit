@@ -3,6 +3,7 @@ import React, { Component, PropTypes, View, Text, TouchableHighlight, Image, Sty
 
 export default class RedditListItem extends Component {
 	static propTypes = { article: PropTypes.object }
+
 	render() {
 		const { article } = this.props;
 		return (

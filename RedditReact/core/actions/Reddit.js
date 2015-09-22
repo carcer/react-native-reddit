@@ -36,7 +36,7 @@ export function fetchSubreddit(opts) {
 
 		return fetch(fetchUrl)
 			.then(response => {
-				console.debug(response);
+				console.info(response);
 				return response.json()})
 			.then((response) => dispatch(recieveListing(response))).done();
 	};

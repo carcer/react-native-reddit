@@ -39,12 +39,12 @@ export default class RedditList extends Component {
 	}
 
 	render() {
-		console.log(this.state.dataSource);
 		return (
 			<ListView
 				dataSource={this.state.dataSource}
 				renderRow={this.renderArticle}
 				onEndReached={this.endReached}
+				pageSize={this.state.dataSource.length}
 			/>
 		);
 	}
