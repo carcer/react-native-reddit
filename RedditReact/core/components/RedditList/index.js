@@ -8,6 +8,7 @@ export default class RedditList extends Component {
 		onPage: PropTypes.func,
 		before: PropTypes.string,
 		after: PropTypes.string,
+		style: PropTypes.string,
 	}
 
 	constructor(props) {
