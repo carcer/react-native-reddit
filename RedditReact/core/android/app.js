@@ -8,13 +8,15 @@ import Loading from './components/Loading';
 import RedditList from '../components/RedditList';
 import Login from '../components/Login';
 
+import styles from './styles';
+
 class RedditReact extends Component {
 	static propTypes = {
 		dispatch: PropTypes.func.isRequired,
 		isLoading: PropTypes.bool,
 		isFetching: PropTypes.bool,
 		isLoggingIn: PropTypes.bool,
-		listings: PropTypes.array,
+		result: PropTypes.object,
 		subreddit: PropTypes.string
 	}
 
@@ -22,7 +24,7 @@ class RedditReact extends Component {
 		super(props);
 		this.state = {
 			subreddit: props.subreddit
-		}
+		};
 	}
 
 	componentDidMount() {
@@ -86,16 +88,6 @@ class RedditReact extends Component {
 		);
 	}
 };
-
-var styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'center',
-		alignItems: 'stretch',
-		backgroundColor: '#F5FCFF',
-	}
-});
 
 function select(state) {
 	console.log(state);
