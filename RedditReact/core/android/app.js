@@ -16,7 +16,7 @@ class RedditReact extends Component {
 		isFetching: PropTypes.bool,
 		isLoggingIn: PropTypes.bool,
 		result: PropTypes.object,
-		subreddit: PropTypes.string
+		subreddit: PropTypes.string,
 	}
 
 	componentDidMount() {
@@ -37,14 +37,18 @@ class RedditReact extends Component {
 		const subreddit = this.props.subreddit;
 
 		this.props.dispatch(clearSubreddit());
-		this.props.dispatch(fetchSubreddit({
+
+		this.page({
 			subreddit,
 			after: ''
-		}));
+		});
 	}
 
 	page = (data) => {
-		const opts = Object.assign({}, data, {subreddit:this.props.subreddit});
+		const opts = Object.assign({}, data, {
+			subreddit:this.props.subreddit
+		});
+
 		this.props.dispatch(fetchSubreddit(opts));
 	}
 
