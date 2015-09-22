@@ -45,6 +45,7 @@ export default class RedditList extends Component {
 				renderRow={this.renderArticle}
 				onEndReached={this.endReached}
 				pageSize={this.state.dataSource.length}
+				style={this.props.style}
 			/>
 		);
 	}

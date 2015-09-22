@@ -31,12 +31,8 @@ export default StyleSheet.create({
 	title: {
 		fontSize: 12,
 		marginBottom: 8,
-		textAlign: 'right',
-		color: 'white'
-	},
-	description: {
-		fontSize: 9,
 		textAlign: 'left',
+		color: 'white'
 	},
 	thumbnail: {
 		flex: 1,
