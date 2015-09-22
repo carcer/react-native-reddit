@@ -1,5 +1,3 @@
-import { List } from 'immutable';
-
 import { RECIEVE_SUBREDDIT, REQUEST_SUBREDDIT, CLEAR_SUBREDDIT,  } from '../actions/Reddit';
 
 const initialState = {

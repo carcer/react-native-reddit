@@ -1,12 +1,10 @@
-import React, { Component, PropTypes, Text, View } from 'react-native';
-import { TouchableHighlight, StyleSheet, ListView, TextInput } from 'react-native';
+import React, { Component, PropTypes, } from 'react-native';
 
-import { fetchSubreddit, finishedLoading, clearSubreddit } from '../actions/Reddit';
+import { fetchSubreddit, clearSubreddit } from '../actions/Reddit';
 import { connect } from 'react-redux/native';
 
 import Loading from './components/Loading';
 import Subreddit from '../components/Subreddit';
-import RedditList from '../components/RedditList';
 import Login from '../components/Login';
 
 class RedditReact extends Component {
@@ -33,7 +31,7 @@ class RedditReact extends Component {
 		return (<Login />);
 	}
 
-	refresh = (e) => {
+	refresh = () => {
 		const subreddit = this.props.subreddit;
 
 		this.props.dispatch(clearSubreddit());

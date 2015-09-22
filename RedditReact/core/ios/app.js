@@ -1,17 +1,10 @@
-import React, {
-	Component,
-	PropTypes,
-	Text,
-	View,
-	TouchableHighlight,
-	StyleSheet
-} from 'react-native';
+import React, { Component, PropTypes, } from 'react-native';
 
-import { fetchSubreddit, finishedLoading } from '../actions/Reddit';
+import { fetchSubreddit, clearSubreddit } from '../actions/Reddit';
 import { connect } from 'react-redux/native';
 
 import Loading from './components/Loading';
-import RedditList from '../components/RedditList';
+import Subreddit from '../components/Subreddit';
 import Login from '../components/Login';
 
 class RedditReact extends Component {
@@ -20,12 +13,12 @@ class RedditReact extends Component {
 		isLoading: PropTypes.bool,
 		isFetching: PropTypes.bool,
 		isLoggingIn: PropTypes.bool,
-		listings: PropTypes.array,
+		result: PropTypes.object,
+		subreddit: PropTypes.string,
 	}
 
 	componentDidMount() {
-		this.props.dispatch(finishedLoading());
-		this.props.dispatch(fetchSubreddit(''));
+		this.refresh();
 	}
 
 	renderLoading(text) {
@@ -38,45 +31,41 @@ class RedditReact extends Component {
 		return (<Login />);
 	}
 
-	login(e) {
-		this.props.dispatch(fetchSubreddit('hot'));
+	refresh = () => {
+		const subreddit = this.props.subreddit;
+
+		this.props.dispatch(clearSubreddit());
+
+		this.page({
+			subreddit,
+			after: ''
+		});
+	}
+
+	page = (data) => {
+		const opts = Object.assign({}, data, {
+			subreddit:this.props.subreddit
+		});
+
+		this.props.dispatch(fetchSubreddit(opts));
 	}
 
 	render() {
 		if (this.props.isLoading) return this.renderLoading('Loading...');
-		if (this.props.isFetching) return this.renderLoading('Fetching subreddit...');
 
-		if (this.props.isLoggingIn) {
-			return this.renderLogin();
-		}
+		if (this.props.isLoggingIn) return this.renderLogin();
 
-		return (
-			<View style={styles.container}>
-				<View>
-				<TouchableHighlight
-					underlayColor="#dddddd"
-					onPress={(e) => this.login(e)}
-				>
-					<Text style={styles.loginText}>Login </Text>
-				</TouchableHighlight>
-				</View>
-				<RedditList listings={this.props.listings} />
-			</View>
-		);
+		return (<Subreddit
+					subreddit={this.props.subreddit}
+					result={this.props.result}
+					onFresh={this.refresh}
+					onPage={this.page}
+				/>);
 	}
 };
 
-var styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'center',
-		alignItems: 'stretch',
-		backgroundColor: '#F5FCFF',
-	}
-});
-
 function select(state) {
+	console.log(state);
 	return state.default || state;
 }
 
