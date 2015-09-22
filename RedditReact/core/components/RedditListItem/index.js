@@ -17,7 +17,6 @@ export default class RedditListItem extends Component {
 				<View style={styles.rightContainer}>
 				  <Text style={styles.title}>
 					{article.get('title')}
-					{this.props.title}!
 				</Text>
 				</View>
 			  </View>
